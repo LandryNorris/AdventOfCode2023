@@ -5,15 +5,29 @@ interface  Day {
     val overrideFile: File? get() = null
 
     fun runPart1(): Int {
-        val file = overrideFile ?: File("inputs/day$dayNumber/day$dayNumber.txt")
-
-        return part1(file.readText())
+        return part1(getFileContents())
     }
 
     fun runPart2(): Int {
-        val file = overrideFile ?: File("inputs/day$dayNumber/day$dayNumber.txt")
+        return part2(getFileContents())
+    }
 
-        return part2(file.readText())
+    fun getFileContents(): String {
+        val userSpecifiedFile = overrideFile
+        val file = userSpecifiedFile ?: File("inputs/day$dayNumber/day$dayNumber.txt")
+
+        if(!file.exists()) {
+            if(userSpecifiedFile != null) {
+                println("You have overridden the file path to " +
+                        "${userSpecifiedFile.absoluteFile}. Make sure a file " +
+                        "exists at this path, or remove the override.")
+            } else {
+                println("A file is expected at ${file.absoluteFile}. Please" +
+                        "copy the input for today's puzzle into this location.")
+            }
+        }
+
+        return file.readText()
     }
 
     fun part1(input: String): Int
