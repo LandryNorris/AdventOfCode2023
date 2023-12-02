@@ -1,7 +1,11 @@
 package days
 
-class Day2 {
-    fun part1(input: String): Int {
+import Day
+
+class Day2: Day {
+    override val dayNumber = 2
+
+    override fun part1(input: String): Int {
         val games = input.lines().mapNotNull { it.parseGame() }
 
         val numRed = 12
@@ -17,7 +21,7 @@ class Day2 {
         return possibleGames.sumOf { it.id }
     }
 
-    fun part2(input: String): Int {
+    override fun part2(input: String): Int {
         val games = input.lines().mapNotNull { it.parseGame() }
 
         val powers = games.map {

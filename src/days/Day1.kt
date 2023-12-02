@@ -1,9 +1,11 @@
 package days
 
-import kotlin.math.max
+import Day
 
-class Day1 {
-    fun part1(input: String): Int {
+class Day1: Day {
+    override val dayNumber = 1
+
+    override fun part1(input: String): Int {
         return input.lines().sumOf {
             val firstDigit = it.firstOrNull { c ->
                 c.isDigit()
@@ -16,7 +18,7 @@ class Day1 {
         }
     }
     
-    fun part2(input: String): Int {
+    override fun part2(input: String): Int {
         return input.lines().sumOf {
             val firstWordIndex = words.minOfOrNull { word ->
                 if(word in it) it.indexOf(word) else 999
@@ -43,7 +45,7 @@ class Day1 {
         }
     }
     
-    val words = listOf("zero", "one", "two", "three", "four",
+    private val words = listOf("zero", "one", "two", "three", "four",
                        "five", "six", "seven", "eight", "nine")
     
     private fun String?.wordToIntOrNull(): Int? {
