@@ -1,0 +1,4 @@
+build/
+.gradle/
+inputs/day*/day*.txt
+.idea/
