@@ -1,3 +1,5 @@
+package days
+
 import kotlin.math.max
 
 class Day1 {

@@ -1,9 +1,10 @@
+import days.Day2
 import java.io.File
 
 fun main() {
-    val part1File = File("inputs/day1/day1.txt")
-    val day = Day1()
+    val dayFile = File("inputs/day2/day2.txt")
+    val day = Day2()
     
-    println(day.part1(part1File.readText()))
-    println(day.part2(part1File.readText()))
+    println(day.part1(dayFile.readText()))
+    println(day.part2(dayFile.readText()))
 }
