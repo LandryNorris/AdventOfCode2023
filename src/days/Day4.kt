@@ -17,6 +17,30 @@ class Day4: Day {
 
         return pointsForCards.sum()
     }
+
+    override fun part2(input: String): Int {
+        val cards = input.lines().mapNotNull { it.parseCard() }
+        val directCardLists = cards.mapIndexed { index, card ->
+            val numMatches = card.numMatches()
+            val startIndex = index+1
+            val endIndex = (startIndex + numMatches).coerceAtMost(cards.size)
+
+            val otherCards = cards.subList(startIndex, endIndex)
+            card to otherCards
+        }.toMap()
+
+        val ids = cards.map { it.id }
+
+        val numOfEachCard = mutableMapOf<Int, Int>()
+
+        ids.forEach { id ->
+            val numMatchingThis = directCardLists.mapValues { it.value.count { card -> card.id == id } }
+
+            numOfEachCard[id] = 1 + numMatchingThis.map { it.value * numOfEachCard.getOrDefault(it.key.id, 0) }.sum()
+        }
+
+        return numOfEachCard.map { it.value }.sum()
+    }
 }
 
 data class Card(val id: Int, val winningNumbers: List<Int>, val numbers: List<Int>)
@@ -38,4 +62,10 @@ fun String.parseCard(): Card? {
 
 fun Card.numMatches(): Int {
     return winningNumbers.intersect(numbers.toSet()).size
+}
+
+fun <T> Map<*, List<T>>.totalCount(predicate: (T) -> Boolean): Int {
+    return values.sumOf { list ->
+        list.count { predicate(it) }
+    }
 }
